@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GFree</string>
+    <string name="app_credits">Created by Max Delaney 2020</string>
+    <string name="app_logo">Gluten Free Assistant</string>
+</resources>

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 iv.startAnimation(animation);
 
 
-                Intent i = new Intent(MainActivity.this, Menu.class);
+                Intent i = new Intent(MainActivity.this, DashboardActivity.class);
                 startActivity(i);
                 finish();
             }

@@ -13,4 +13,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="navigation_drawer_open">"Open navigation drawer"</string>
     <string name="navigation_drawer_close">"Close navigation drawer"</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="contact_explanation">Should you need to contact me directly just send me an email.</string>
+    <string name="my_email">maxdelaney16@gmail.com</string>
 </resources>

@@ -51,6 +51,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 Toast.makeText(this, "Logged out!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DashboardActivity.this, MainActivity.class));
                 break;
+            case R.id.contact_me:
+                startActivity(new Intent(DashboardActivity.this, ContactActivity.class));
+                break;
+            case R.id.credits:
+                startActivity(new Intent(DashboardActivity.this, CreditActivity.class));
+                break;
         }
         return true;
     }

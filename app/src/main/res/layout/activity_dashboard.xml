@@ -7,7 +7,7 @@
     tools:context=".DashboardActivity"
     android:fitsSystemWindows="false"
     android:id="@+id/drawer_layout"
-    tools:openDrawer="start">
+    tools:openDrawer="end">
 
 
         <LinearLayout
@@ -27,7 +27,18 @@
             <FrameLayout
                 android:id="@+id/fragment_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" >
+
+                <Button
+                    android:id="@+id/dashboard_packet_scanner_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/design_default_color_on_primary"
+                    android:text="Packet Scanner"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_primary"
+                    android:textSize="24sp" />
+            </FrameLayout>
         </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

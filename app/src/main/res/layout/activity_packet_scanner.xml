@@ -20,7 +20,8 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:foreground="@drawable/circular_button"
+        android:onClick="buttonStart"
         android:padding="15dp"
-        android:theme="@style/RoundedButton" />
+        android:theme="@style/Theme.RoundedButton" />
 
 </LinearLayout>

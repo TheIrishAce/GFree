@@ -14,8 +14,30 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="RoundedButton">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:shape">oval</item>
+        <item name="colorPrimary">#006200EE</item>
+        <item name="colorPrimaryVariant">#003700B3</item>
+        <item name="colorOnPrimary">#003700B3</item>
+        <item name="colorOnBackground">#003700B3</item>
+        <item name="colorAccent">#003700B3</item>
+        <item name="colorButtonNormal">#003700B3</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#003700B3</item>
+        <item name="colorScheme">#003700B3</item>
+        <item name="colorSecondaryVariant">#003700B3</item>
+        <item name="colorOnSecondary">#003700B3</item>
+        <item name="android:bottomLeftRadius">180dp</item>
+        <item name="android:bottomRightRadius">180dp</item>
+        <item name="android:topLeftRadius">180dp</item>
+        <item name="android:topRightRadius">180dp</item>
+    </style>
+
     <style name="Theme.NoActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">false</item>
     </style>
+
 </resources>

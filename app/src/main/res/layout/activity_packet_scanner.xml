@@ -16,8 +16,11 @@
 
     <Button
         android:id="@+id/captureScanButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="buttonStart"
-        android:text="Capture" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:foreground="@drawable/circular_button"
+        android:padding="15dp"
+        android:theme="@style/RoundedButton" />
+
 </LinearLayout>

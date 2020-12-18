@@ -69,6 +69,8 @@ public class PacketScannerActivity extends AppCompatActivity {
     private void textRecognizer() {
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
+                .setAutoFocusEnabled(true)
+                .setFocusMode("continuous-video")
                 .setRequestedPreviewSize(1280, 1080)
                 .build();
         surfaceView = findViewById(R.id.surfaceView);

@@ -19,4 +19,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/captureScanButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="181dp"
+        android:layout_marginBottom="16dp"
+        android:foreground="@drawable/circular_button"
+        android:onClick="buttonStart"
+        android:padding="15dp"
+        android:theme="@style/Theme.RoundedButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/surfaceView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

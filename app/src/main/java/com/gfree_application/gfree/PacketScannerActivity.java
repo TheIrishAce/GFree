@@ -30,7 +30,7 @@ public class PacketScannerActivity extends AppCompatActivity {
 
     private TextView textView;
     private SurfaceView surfaceView;
-    private Button captureScanButton;
+    private Button openScanButton, captureScanButton;
 
     private CameraSource cameraSource;
     private TextRecognizer textRecognizer;
@@ -46,8 +46,8 @@ public class PacketScannerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_packet_scanner);
 
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PackageManager.PERMISSION_GRANTED);
-        captureScanButton = findViewById(R.id.captureScanButton);
-        captureScanButton.setBackgroundResource(R.drawable.circular_button);
+        openScanButton = findViewById(R.id.openScanButton);
+        openScanButton.setBackgroundResource(R.drawable.circular_button);
 
 //        if (String[]{Manifest.permission.CAMERA}) {
 //        }
@@ -108,23 +108,28 @@ public class PacketScannerActivity extends AppCompatActivity {
 
             @Override
             public void receiveDetections(@NonNull Detector.Detections<TextBlock> detections) {
-                SparseArray<TextBlock> sparseArray = detections.getDetectedItems(); //Get array of items detected
-                StringBuilder stringBuilder = new StringBuilder();
-
-                for (int i=0; i<sparseArray.size();i++){
-                    TextBlock textBlock = sparseArray.valueAt(i);
-                    if(textBlock != null && textBlock.getValue() != null){
-                        stringBuilder.append(textBlock.getValue() + " ");   //Convert what was detected into a StringBuilder.
-                    }
-                }
-
-                final String stringText = stringBuilder.toString();
-                Handler  handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
+                captureScanButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void run() {
-                        stringResult = stringText;
-                        resultObtained();
+                    public void onClick(View v) {
+                        SparseArray<TextBlock> sparseArray = detections.getDetectedItems(); //Get array of items detected
+                        StringBuilder stringBuilder = new StringBuilder();
+
+                        for (int i=0; i<sparseArray.size();i++){
+                            TextBlock textBlock = sparseArray.valueAt(i);
+                            if(textBlock != null && textBlock.getValue() != null){
+                                stringBuilder.append(textBlock.getValue() + " ");   //Convert what was detected into a StringBuilder.
+                            }
+                        }
+
+                        final String stringText = stringBuilder.toString();
+                        Handler  handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                stringResult = stringText;
+                                resultObtained();
+                            }
+                        });
                     }
                 });
             }
@@ -140,6 +145,9 @@ public class PacketScannerActivity extends AppCompatActivity {
 
     public void buttonStart(View view){
         setContentView(R.layout.camera_screen_surfaceview);
+        captureScanButton = findViewById(R.id.captureScanButton);
+        captureScanButton.setBackgroundResource(R.drawable.circular_button);
+
         textRecognizer();
     }
 }

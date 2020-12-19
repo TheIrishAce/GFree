@@ -7,11 +7,25 @@
     tools:context=".RegisterActivity"
     android:padding="10dp">
 
+    <ImageView
+        android:id="@+id/registerLogoImageView"
+        android:layout_width="171dp"
+        android:layout_height="121dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:scaleType="center"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:srcCompat="@mipmap/gfree_logo" />
+
     <EditText
         android:id="@+id/RegisterEmailTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_below="@id/registerLogoImageView"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress" />

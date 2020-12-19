@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RestaurantReviewActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <Button
+                android:id="@+id/restaurant_review_create_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/design_default_color_on_primary"
+                android:backgroundTint="@color/white"
+                android:padding="5dp"
+                android:text="Create Review"
+                android:textAlignment="center"
+                android:textColor="@color/design_default_color_primary"
+                android:textSize="24sp"
+                app:icon="@android:drawable/ic_menu_add"
+                app:iconTint="@color/design_default_color_primary" />
+
+            <Button
+                android:id="@+id/restaurant_review_read_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/design_default_color_on_primary"
+                android:backgroundTint="@color/white"
+                android:isScrollContainer="false"
+                android:padding="5dp"
+                android:text="Read Reviews"
+                android:textAlignment="center"
+                android:textColor="@color/design_default_color_primary"
+                android:textSize="24sp"
+                app:icon="@android:drawable/ic_menu_view"
+                app:iconTint="@color/design_default_color_primary" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/restaurant_review_update_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/design_default_color_on_primary"
+                android:backgroundTint="@color/white"
+                android:padding="5dp"
+                android:text="Update Reviews"
+                android:textAlignment="center"
+                android:textColor="@color/design_default_color_primary"
+                android:textSize="24sp"
+                app:icon="@android:drawable/ic_menu_edit"
+                app:iconTint="@color/design_default_color_primary" />
+
+            <Button
+                android:id="@+id/restaurant_review_delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/design_default_color_on_primary"
+                android:backgroundTint="@color/white"
+                android:padding="5dp"
+                android:text="Delete Review"
+                android:textAlignment="center"
+                android:textColor="@color/design_default_color_primary"
+                android:textSize="24sp"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconTint="@color/design_default_color_primary" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+</LinearLayout>

@@ -23,7 +23,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
-    private Button packetScannerButton;
+    private Button packetScannerButton, resterauntReviewButton;
 
 
 
@@ -46,6 +46,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(DashboardActivity.this, PacketScannerActivity.class));
+            }
+        });
+
+        resterauntReviewButton = findViewById(R.id.dashboard_restaurant_review_button);
+        resterauntReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, RestaurantReviewActivity.class));
             }
         });
 

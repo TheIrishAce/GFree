@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gfree_application.gfree">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GFree">
+        <activity android:name=".CreateResterauntReviewActivity"></activity>
+        <activity android:name="com.CreateReviewActivity" />
+        <activity android:name=".RestaurantReviewActivity" />
         <activity android:name=".PacketScannerActivity">
             <meta-data
                 android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version" /> <!--version--><!-- make sure added-->
+                android:value="@integer/google_play_services_version" /> <!-- version -->
+            <!-- make sure added -->
             <meta-data
                 android:name="com.google.android.gms.vision.DEPENDENCIES"
-                android:value="ocr" /><!-- barcode,face,ocr make sure added-->
+                android:value="ocr" /> <!-- barcode,face,ocr make sure added -->
         </activity>
         <activity android:name=".ContactActivity" />
         <activity android:name=".CreditActivity" />

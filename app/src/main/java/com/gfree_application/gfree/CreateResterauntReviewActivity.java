@@ -32,7 +32,7 @@ public class CreateResterauntReviewActivity extends AppCompatActivity {
                 if(createReviewRestaurantName.getText().toString().isEmpty()){
                     Toast.makeText(CreateResterauntReviewActivity.this, "Restaurant name is empty!", Toast.LENGTH_SHORT).show();
                 }
-                else if(createReviewTextInput.getText() == null || createReviewTextInput.length() < 10){
+                else if(createReviewTextInput.getText() == null || createReviewTextInput.length() < 20){
                     Toast.makeText(CreateResterauntReviewActivity.this, "Review body is empty or isn't larger than 10 characters long.", Toast.LENGTH_SHORT).show();
                 }
                 else {

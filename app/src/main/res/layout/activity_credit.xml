@@ -10,21 +10,22 @@
         android:id="@+id/CreditsHeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
+        android:layout_marginStart="147dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="183dp"
+        android:layout_marginEnd="150dp"
         android:layout_marginBottom="20dp"
         android:text="Credits"
         android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/CreditsBodyTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/CreditsBodyTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="187dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
         android:layout_marginTop="20dp"
@@ -34,23 +35,21 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/CreditsBody2TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CreditsHeaderTextView" />
 
     <TextView
         android:id="@+id/CreditsBody2TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="116dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="147dp"
+        android:layout_marginStart="145dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="618dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="424dp"
         android:text="Android Studio 4.2"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CreditsBodyTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

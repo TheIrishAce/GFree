@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity"
+    tools:context=".GuestDashboardActivity"
     android:fitsSystemWindows="false"
     android:id="@+id/drawer_layout"
     tools:openDrawer="start">
@@ -40,8 +40,8 @@
 
                         <Button
                             android:id="@+id/dashboard_packet_scanner_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@color/design_default_color_on_primary"
                             android:padding="5dp"
@@ -52,12 +52,11 @@
 
                         <Button
                             android:id="@+id/dashboard_restaurant_review_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:background="@color/design_default_color_on_primary"
                             android:padding="5dp"
-                            android:text="Restaurant Review"
                             android:textAlignment="center"
                             android:textColor="@color/design_default_color_primary"
                             android:textSize="24sp" />
@@ -85,6 +84,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_guest_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

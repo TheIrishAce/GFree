@@ -62,8 +62,12 @@ public class PacketScannerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        cameraSource.release();
-        textToSpeech.stop();
+        try {
+            cameraSource.release();
+            textToSpeech.stop();
+        } catch (Exception e){
+            //Toast.makeText(this, "Error" + e, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void textRecognizer() {
@@ -79,7 +83,7 @@ public class PacketScannerActivity extends AppCompatActivity {
             public void surfaceCreated(@NonNull SurfaceHolder holder) {
                 try {
                     if (ActivityCompat.checkSelfPermission(PacketScannerActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        startActivity(new Intent(PacketScannerActivity.this, DashboardActivity.class));
+                        startActivity(new Intent(PacketScannerActivity.this, UserDashboardActivity.class));
                         Toast.makeText(PacketScannerActivity.this, "You must grant permission to use this feature!", Toast.LENGTH_SHORT).show();
                     }
                     else {

@@ -37,7 +37,7 @@ public class CreateResterauntReviewActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(CreateResterauntReviewActivity.this, "REVIEW SUBMITTED!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(CreateResterauntReviewActivity.this, DashboardActivity.class));
+                    startActivity(new Intent(CreateResterauntReviewActivity.this, UserDashboardActivity.class));
                 }
             }
         });

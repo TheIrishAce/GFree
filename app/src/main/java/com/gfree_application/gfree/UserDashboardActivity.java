@@ -3,7 +3,6 @@ package com.gfree_application.gfree;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.ToolbarWidgetWrapper;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -19,7 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class UserDashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
@@ -30,7 +29,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_user_dashboard);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -45,7 +44,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         packetScannerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DashboardActivity.this, PacketScannerActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, PacketScannerActivity.class));
             }
         });
 
@@ -53,7 +52,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         resterauntReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DashboardActivity.this, RestaurantReviewActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, RestaurantReviewActivity.class));
             }
         });
 
@@ -69,13 +68,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.signout:
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(this, "Logged out!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, MainActivity.class));
                 break;
             case R.id.contact_me:
-                startActivity(new Intent(DashboardActivity.this, ContactActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, ContactActivity.class));
                 break;
             case R.id.credits:
-                startActivity(new Intent(DashboardActivity.this, CreditActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, CreditActivity.class));
                 break;
         }
         return true;

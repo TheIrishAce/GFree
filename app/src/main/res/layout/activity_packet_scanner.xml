@@ -8,12 +8,30 @@
     tools:context=".PacketScannerActivity">
 
     <TextView
-        android:id="@+id/scanDataTextView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/scanDataDangerousIngredientTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="647dp"
         android:layout_margin="8dp"
         android:layout_weight="1"
         android:text="Scanned packet information will be displayed here.."
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/scanDataWarningIngredientTextView"
+        android:layout_width="match_parent"
+        android:layout_height="647dp"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/scanDataSafeIngredientTextView"
+        android:layout_width="match_parent"
+        android:layout_height="647dp"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
         android:textColor="#000000"
         android:textSize="24sp" />
 

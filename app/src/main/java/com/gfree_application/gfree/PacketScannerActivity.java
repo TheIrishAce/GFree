@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,20 +26,22 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.StringTokenizer;
 
 public class PacketScannerActivity extends AppCompatActivity {
 
-    private TextView textView;
+    private TextView dangerousIngredientTextView, warningIngredientTextView, safeIngredientTextView;
     private SurfaceView surfaceView;
     private Button openScanButton, captureScanButton;
-
     private CameraSource cameraSource;
     private TextRecognizer textRecognizer;
-
     private TextToSpeech textToSpeech;
-
-    private String stringResult = null;
-
+    private String stringScannedImageResult = null;
+    private ArrayList<String> scannedImageDangerousIngredients, scannedImageWarningIngredients, scannedImageSafeIngredients;
+    private ImageTextConverter imgConverter = new ImageTextConverter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +121,7 @@ public class PacketScannerActivity extends AppCompatActivity {
                         SparseArray<TextBlock> sparseArray = detections.getDetectedItems(); //Get array of items detected
                         StringBuilder stringBuilder = new StringBuilder();
 
-                        for (int i=0; i<sparseArray.size();i++){
+                        for (int i=0; i<sparseArray.size(); i++){
                             TextBlock textBlock = sparseArray.valueAt(i);
                             if(textBlock != null && textBlock.getValue() != null){
                                 stringBuilder.append(textBlock.getValue() + " ");   //Convert what was detected into a StringBuilder.
@@ -130,7 +133,51 @@ public class PacketScannerActivity extends AppCompatActivity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                stringResult = stringText;
+                                stringScannedImageResult = stringText;
+                                StringTokenizer st = new StringTokenizer(stringScannedImageResult.toLowerCase(), ",");
+
+                                scannedImageDangerousIngredients = new ArrayList<String>();
+                                scannedImageWarningIngredients = new ArrayList<String>();
+                                scannedImageSafeIngredients = new ArrayList<String>();
+
+                                String returnedIngredient = null;
+                                while (st.hasMoreElements()){
+                                    String CurrentWordToCheck = st.nextToken();
+                                    try {
+                                        returnedIngredient = imgConverter.checkDangerousIngredients(CurrentWordToCheck, st.countTokens());
+                                        if ((!returnedIngredient.equalsIgnoreCase("")) || (!returnedIngredient.equalsIgnoreCase(null))){
+                                            scannedImageDangerousIngredients.add(returnedIngredient);
+                                        }
+                                        returnedIngredient = imgConverter.checkWarningIngredients(CurrentWordToCheck, st.countTokens());
+                                        if ((!returnedIngredient.equalsIgnoreCase("")) || (!returnedIngredient.equalsIgnoreCase(null))){
+                                            scannedImageWarningIngredients.add(returnedIngredient);
+                                        }
+                                        returnedIngredient = imgConverter.checkSafeIngredients(CurrentWordToCheck, st.countTokens());
+                                        if ((!returnedIngredient.equalsIgnoreCase(" ")) || (!returnedIngredient.equalsIgnoreCase(null))){
+                                            scannedImageSafeIngredients.add(returnedIngredient);
+                                        }
+                                    } catch (Exception e){
+                                        System.out.println(e);
+                                    }
+
+//                                    try {
+//                                        returnedIngredient = imgConverter.checkWarningIngredients(CurrentWordToCheck, st.countTokens());
+//                                        if ((!returnedIngredient.equalsIgnoreCase("")) || (!returnedIngredient.equalsIgnoreCase(null))){
+//                                            scannedImageWarningIngredients.add(returnedIngredient);
+//                                        }
+//                                    } catch (Exception e){
+//                                        System.out.println(e);
+//                                    }
+//
+//                                    try {
+//                                        returnedIngredient = imgConverter.checkSafeIngredients(CurrentWordToCheck, st.countTokens());
+//                                        if ((!returnedIngredient.equalsIgnoreCase(" ")) || (!returnedIngredient.equalsIgnoreCase(null))){
+//                                            scannedImageSafeIngredients.add(returnedIngredient);
+//                                        }
+//                                    } catch (Exception e){
+//                                        System.out.println(e);
+//                                    }
+                                }
                                 resultObtained();
                             }
                         });
@@ -142,9 +189,57 @@ public class PacketScannerActivity extends AppCompatActivity {
 
     private void resultObtained(){
         setContentView(R.layout.activity_packet_scanner);
-        textView = findViewById(R.id.scanDataTextView);
-        textView.setText(stringResult);
-        textToSpeech.speak(stringResult, TextToSpeech.QUEUE_FLUSH, null, null);
+        dangerousIngredientTextView = findViewById(R.id.scanDataDangerousIngredientTextView);
+        warningIngredientTextView = findViewById(R.id.scanDataWarningIngredientTextView);
+        safeIngredientTextView = findViewById(R.id.scanDataSafeIngredientTextView);
+
+        //set the text view to black text.
+//        dangerousIngredientTextView.setTextColor(Color.parseColor("#000000"));
+//        warningIngredientTextView.setTextColor(Color.parseColor("#000000"));
+//        safeIngredientTextView.setTextColor(Color.parseColor("#000000"));
+
+        //Used to remove the placeholder message before the found ingredients are appended.
+        dangerousIngredientTextView.setText("");
+        warningIngredientTextView.setText("");
+        safeIngredientTextView.setText("");
+
+        //Set the colour for each textview red for dangerous, yellow for warnings, and green for safe.
+        dangerousIngredientTextView.setTextColor(Color.parseColor("#a83232"));
+        warningIngredientTextView.setTextColor(Color.parseColor("#a37931"));
+        safeIngredientTextView.setTextColor(Color.parseColor("#46a331"));
+
+        System.out.println("Dangerous Ingr: " + scannedImageDangerousIngredients.toString());
+        System.out.println("Warning Ingr: " + scannedImageWarningIngredients.toString());
+        System.out.println("Safe Ingr: " + scannedImageSafeIngredients.toString());
+
+        //Removes any empty elements before the user see them.
+        //Prehaps prevent the creation of empty elements instead of creating and then removing later?
+        scannedImageDangerousIngredients.removeIf(String::isEmpty);
+        scannedImageWarningIngredients.removeIf(String::isEmpty);
+        scannedImageSafeIngredients.removeIf(String::isEmpty);
+
+        System.out.println("Dangerous Ingr: " + scannedImageDangerousIngredients.toString());
+        System.out.println("Warning Ingr: " + scannedImageWarningIngredients.toString());
+        System.out.println("Safe Ingr: " + scannedImageSafeIngredients.toString());
+
+        for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
+            dangerousIngredientTextView.append(scannedImageDangerousIngredients.get(i)+ "\n");
+        }
+        for (int i =0; i < scannedImageWarningIngredients.size(); i++){
+            warningIngredientTextView.append(scannedImageWarningIngredients.get(i) + "\n");
+        }
+        for (int i =0; i < scannedImageSafeIngredients.size(); i++){
+            safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
+        }
+        if (!scannedImageDangerousIngredients.isEmpty()){
+            textToSpeech.speak(scannedImageDangerousIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+        }
+        if (!scannedImageWarningIngredients.isEmpty()){
+            textToSpeech.speak(scannedImageWarningIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+        }
+        if (!scannedImageSafeIngredients.isEmpty()){
+            textToSpeech.speak(scannedImageSafeIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+        }
     }
 
     public void buttonStart(View view){

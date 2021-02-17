@@ -27,6 +27,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.StringTokenizer;
@@ -40,7 +41,7 @@ public class PacketScannerActivity extends AppCompatActivity {
     private TextRecognizer textRecognizer;
     private TextToSpeech textToSpeech;
     private String stringScannedImageResult = null;
-    private ArrayList<String> scannedImageDangerousIngredients, scannedImageWarningIngredients, scannedImageSafeIngredients;
+    private ArrayList<String> scannedImageDangerousIngredients, scannedImageWarningIngredients, scannedImageSafeIngredients, scannedImageAllIngredients;
     private ImageTextConverter imgConverter = new ImageTextConverter();
 
     @Override
@@ -193,11 +194,6 @@ public class PacketScannerActivity extends AppCompatActivity {
         warningIngredientTextView = findViewById(R.id.scanDataWarningIngredientTextView);
         safeIngredientTextView = findViewById(R.id.scanDataSafeIngredientTextView);
 
-        //set the text view to black text.
-//        dangerousIngredientTextView.setTextColor(Color.parseColor("#000000"));
-//        warningIngredientTextView.setTextColor(Color.parseColor("#000000"));
-//        safeIngredientTextView.setTextColor(Color.parseColor("#000000"));
-
         //Used to remove the placeholder message before the found ingredients are appended.
         dangerousIngredientTextView.setText("");
         warningIngredientTextView.setText("");
@@ -218,6 +214,7 @@ public class PacketScannerActivity extends AppCompatActivity {
         scannedImageWarningIngredients.removeIf(String::isEmpty);
         scannedImageSafeIngredients.removeIf(String::isEmpty);
 
+        // --- Debug for viewing list
         System.out.println("Dangerous Ingr: " + scannedImageDangerousIngredients.toString());
         System.out.println("Warning Ingr: " + scannedImageWarningIngredients.toString());
         System.out.println("Safe Ingr: " + scannedImageSafeIngredients.toString());
@@ -231,14 +228,15 @@ public class PacketScannerActivity extends AppCompatActivity {
         for (int i =0; i < scannedImageSafeIngredients.size(); i++){
             safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
         }
-        if (!scannedImageDangerousIngredients.isEmpty()){
-            textToSpeech.speak(scannedImageDangerousIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
-        }
-        if (!scannedImageWarningIngredients.isEmpty()){
-            textToSpeech.speak(scannedImageWarningIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
-        }
-        if (!scannedImageSafeIngredients.isEmpty()){
-            textToSpeech.speak(scannedImageSafeIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+
+        //Add different ingredient lists to one main joint list to be used in text to speech.
+        scannedImageAllIngredients.addAll(scannedImageDangerousIngredients);
+        scannedImageAllIngredients.addAll(scannedImageWarningIngredients);
+        scannedImageAllIngredients.addAll(scannedImageSafeIngredients);
+
+        //if at least 1 ingredient is added to the list. Begin text to speech.
+        if (!scannedImageAllIngredients.isEmpty()){
+            textToSpeech.speak(scannedImageAllIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }
 

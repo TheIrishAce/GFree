@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,8 @@ import java.util.StringTokenizer;
 public class PacketScannerActivity extends AppCompatActivity {
 
     private TextView dangerousIngredientTextView, warningIngredientTextView, safeIngredientTextView;
+    private TableRow dangerousIngredientRow, warningIngredientRow, safeIngredientRow;
+    //private ImageView dangerousIngredientRowIcon, warningIngredientRowIcon, safeIngredientRowIcon;
     private SurfaceView surfaceView;
     private Button openScanButton, captureScanButton;
     private CameraSource cameraSource;
@@ -53,6 +58,22 @@ public class PacketScannerActivity extends AppCompatActivity {
         openScanButton = findViewById(R.id.openScanButton);
         openScanButton.setBackgroundResource(R.drawable.circular_button);
 
+        dangerousIngredientRow = findViewById(R.id.dangerousIngredientRow);
+        warningIngredientRow = findViewById(R.id.warningIngredientRow);
+        safeIngredientRow = findViewById(R.id.safeIngredientRow);
+
+        dangerousIngredientRow.clearAnimation();
+        warningIngredientRow.clearAnimation();
+        safeIngredientRow.clearAnimation();
+
+        scannedImageDangerousIngredients = new ArrayList<String>();
+        scannedImageWarningIngredients = new ArrayList<String>();
+        scannedImageSafeIngredients = new ArrayList<String>();
+
+//        dangerousIngredientRow.setVisibility(View.GONE);
+//        warningIngredientRow.setVisibility(View.GONE);
+//        safeIngredientRow.setVisibility(View.GONE);
+
 //        if (String[]{Manifest.permission.CAMERA}) {
 //        }
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -61,6 +82,7 @@ public class PacketScannerActivity extends AppCompatActivity {
                 //Nothing changed here keeps defaults
             }
         });
+
     }
 
     @Override
@@ -75,6 +97,18 @@ public class PacketScannerActivity extends AppCompatActivity {
     }
 
     private void textRecognizer() {
+        scannedImageDangerousIngredients = new ArrayList<String>();
+        scannedImageWarningIngredients = new ArrayList<String>();
+        scannedImageSafeIngredients = new ArrayList<String>();
+        scannedImageAllIngredients = new ArrayList<String>();
+
+        clearIngridentTextFields();
+        scannedImageDangerousIngredients.clear();
+        scannedImageWarningIngredients.clear();
+        scannedImageSafeIngredients.clear();
+        scannedImageAllIngredients.clear();
+
+
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                 .setAutoFocusEnabled(true)
@@ -137,10 +171,6 @@ public class PacketScannerActivity extends AppCompatActivity {
                                 stringScannedImageResult = stringText;
                                 StringTokenizer st = new StringTokenizer(stringScannedImageResult.toLowerCase(), ",");
 
-                                scannedImageDangerousIngredients = new ArrayList<String>();
-                                scannedImageWarningIngredients = new ArrayList<String>();
-                                scannedImageSafeIngredients = new ArrayList<String>();
-
                                 String returnedIngredient = null;
                                 while (st.hasMoreElements()){
                                     String CurrentWordToCheck = st.nextToken();
@@ -188,16 +218,20 @@ public class PacketScannerActivity extends AppCompatActivity {
         });
     }
 
+    public void clearIngridentTextFields(){
+        //Used to remove the placeholder message before the found ingredients are appended.
+        dangerousIngredientTextView.setText("");
+        warningIngredientTextView.setText("");
+        safeIngredientTextView.setText("");
+    }
+
     private void resultObtained(){
         setContentView(R.layout.activity_packet_scanner);
         dangerousIngredientTextView = findViewById(R.id.scanDataDangerousIngredientTextView);
         warningIngredientTextView = findViewById(R.id.scanDataWarningIngredientTextView);
         safeIngredientTextView = findViewById(R.id.scanDataSafeIngredientTextView);
 
-        //Used to remove the placeholder message before the found ingredients are appended.
-        dangerousIngredientTextView.setText("");
-        warningIngredientTextView.setText("");
-        safeIngredientTextView.setText("");
+        clearIngridentTextFields();
 
         //Set the colour for each textview red for dangerous, yellow for warnings, and green for safe.
         dangerousIngredientTextView.setTextColor(Color.parseColor("#a83232"));
@@ -219,6 +253,50 @@ public class PacketScannerActivity extends AppCompatActivity {
         System.out.println("Warning Ingr: " + scannedImageWarningIngredients.toString());
         System.out.println("Safe Ingr: " + scannedImageSafeIngredients.toString());
 
+
+        Log.d("Dangerous Ingredient ArrayList:", scannedImageDangerousIngredients.toString());
+        Log.d("Warning Ingredient ArrayList:", scannedImageWarningIngredients.toString());
+        Log.d("Safe Ingredient ArrayList:", scannedImageSafeIngredients.toString());
+
+        Log.d("Is Dangerous Ingredient ArrayList Empty:", String.valueOf(scannedImageDangerousIngredients.isEmpty()));
+        Log.d("Is Warning Ingredient ArrayList Empty", String.valueOf(scannedImageWarningIngredients.isEmpty()));
+        Log.d("Is Safe Ingredient ArrayList Empty", String.valueOf(scannedImageSafeIngredients.isEmpty()));
+
+
+        //Set visibility of different categories.
+//        if (scannedImageDangerousIngredients.isEmpty()){
+//            Log.d("Entered first if", scannedImageDangerousIngredients.toString());
+//            dangerousIngredientRow.clearAnimation();
+//            dangerousIngredientRow.setVisibility(View.GONE);
+//            //dangerousIngredientRow.invalidate();
+//        }
+//        else {
+//            for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
+//                dangerousIngredientTextView.append(scannedImageDangerousIngredients.get(i)+ "\n");
+//            }
+//        }
+//        if (scannedImageWarningIngredients.isEmpty()){
+//            Log.d("Entered sec if", scannedImageWarningIngredients.toString());
+//            warningIngredientRow.clearAnimation();
+//            warningIngredientRow.setVisibility(View.GONE);
+//            // warningIngredientRow.invalidate();
+//
+//        } else {
+//            for (int i =0; i < scannedImageWarningIngredients.size(); i++){
+//                warningIngredientTextView.append(scannedImageWarningIngredients.get(i) + "\n");
+//            }
+//        }
+//        if (scannedImageSafeIngredients.isEmpty()){
+//            Log.d("Entered thir if", scannedImageSafeIngredients.toString());
+//            safeIngredientRow.clearAnimation();
+//            safeIngredientRow.setVisibility(View.GONE);
+//            //safeIngredientRow.invalidate();
+//
+//        } else {
+//            for (int i =0; i < scannedImageSafeIngredients.size(); i++){
+//                safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
+//            }
+//        }
         for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
             dangerousIngredientTextView.append(scannedImageDangerousIngredients.get(i)+ "\n");
         }
@@ -229,7 +307,9 @@ public class PacketScannerActivity extends AppCompatActivity {
             safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
         }
 
+
         //Add different ingredient lists to one main joint list to be used in text to speech.
+        scannedImageAllIngredients = new ArrayList<String>();
         scannedImageAllIngredients.addAll(scannedImageDangerousIngredients);
         scannedImageAllIngredients.addAll(scannedImageWarningIngredients);
         scannedImageAllIngredients.addAll(scannedImageSafeIngredients);
@@ -237,7 +317,21 @@ public class PacketScannerActivity extends AppCompatActivity {
         //if at least 1 ingredient is added to the list. Begin text to speech.
         if (!scannedImageAllIngredients.isEmpty()){
             textToSpeech.speak(scannedImageAllIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+//            scannedImageAllIngredients.clear();
+//            scannedImageDangerousIngredients.clear();
+//            scannedImageWarningIngredients.clear();
+//            scannedImageSafeIngredients.clear();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dangerousIngredientTextView = findViewById(R.id.scanDataDangerousIngredientTextView);
+        warningIngredientTextView = findViewById(R.id.scanDataWarningIngredientTextView);
+        safeIngredientTextView = findViewById(R.id.scanDataSafeIngredientTextView);
+
+
     }
 
     public void buttonStart(View view){

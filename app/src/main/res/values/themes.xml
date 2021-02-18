@@ -40,4 +40,14 @@
         <item name="windowNoTitle">false</item>
     </style>
 
+    <style name="Theme.RoundedImage" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:shape">oval</item>
+        <item name="android:bottomLeftRadius">180dp</item>
+        <item name="android:bottomRightRadius">180dp</item>
+        <item name="android:topLeftRadius">180dp</item>
+        <item name="android:topRightRadius">180dp</item>
+    </style>
+
 </resources>

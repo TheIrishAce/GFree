@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "562554087069",
-    "project_id": "gfree-9cc17",
-    "storage_bucket": "gfree-9cc17.appspot.com"
+    "project_number": "989599478160",
+    "project_id": "gfree-d7ca8",
+    "storage_bucket": "gfree-d7ca8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:562554087069:android:55a821cc68ece11f55d674",
+        "mobilesdk_app_id": "1:989599478160:android:3f9b9510642387294e0315",
         "android_client_info": {
           "package_name": "com.gfree_application.gfree"
         }
       },
       "oauth_client": [
         {
-          "client_id": "562554087069-igv67daugkpkem4leu19fupmpd43eab9.apps.googleusercontent.com",
+          "client_id": "989599478160-3qgcqja4hlktutdpvjhou7k6kt4vhr8e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBn95MV4u_9ZoT6S2HPbjhwTGAdO3D0sSs"
+          "current_key": "AIzaSyCfFxPwBdq0xjLITwnuAlg_BqFIxuqYq44"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "562554087069-igv67daugkpkem4leu19fupmpd43eab9.apps.googleusercontent.com",
+              "client_id": "989599478160-3qgcqja4hlktutdpvjhou7k6kt4vhr8e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

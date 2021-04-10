@@ -32,7 +32,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class PacketScannerActivity extends AppCompatActivity {
@@ -298,12 +301,15 @@ public class PacketScannerActivity extends AppCompatActivity {
 //            }
 //        }
         for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
+            scannedImageDangerousIngredients = removeDuplicate(scannedImageDangerousIngredients);
             dangerousIngredientTextView.append(scannedImageDangerousIngredients.get(i)+ "\n");
         }
         for (int i =0; i < scannedImageWarningIngredients.size(); i++){
+            scannedImageWarningIngredients = removeDuplicate(scannedImageWarningIngredients);
             warningIngredientTextView.append(scannedImageWarningIngredients.get(i) + "\n");
         }
         for (int i =0; i < scannedImageSafeIngredients.size(); i++){
+            scannedImageSafeIngredients = removeDuplicate(scannedImageSafeIngredients);
             safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
         }
 
@@ -313,6 +319,8 @@ public class PacketScannerActivity extends AppCompatActivity {
         scannedImageAllIngredients.addAll(scannedImageDangerousIngredients);
         scannedImageAllIngredients.addAll(scannedImageWarningIngredients);
         scannedImageAllIngredients.addAll(scannedImageSafeIngredients);
+        scannedImageAllIngredients = removeDuplicate(scannedImageAllIngredients);
+
 
         //if at least 1 ingredient is added to the list. Begin text to speech.
         if (!scannedImageAllIngredients.isEmpty()){
@@ -322,6 +330,14 @@ public class PacketScannerActivity extends AppCompatActivity {
 //            scannedImageWarningIngredients.clear();
 //            scannedImageSafeIngredients.clear();
         }
+    }
+
+    public ArrayList removeDuplicate(ArrayList incArrayList){
+        //Filters out duplicates. Workaround for contains instead of matches. Potential refactoring!
+        Set<String> set = new LinkedHashSet<>(incArrayList);
+        incArrayList.clear();
+        incArrayList.addAll(set);
+        return incArrayList;
     }
 
     @Override

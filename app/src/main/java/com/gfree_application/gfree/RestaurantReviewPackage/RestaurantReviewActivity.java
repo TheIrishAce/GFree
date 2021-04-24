@@ -1,4 +1,4 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.RestaurantReviewPackage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.gfree_application.gfree.R;
 
 public class RestaurantReviewActivity extends AppCompatActivity {
 

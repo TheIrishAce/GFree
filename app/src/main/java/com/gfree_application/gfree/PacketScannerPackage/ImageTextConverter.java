@@ -1,6 +1,5 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.PacketScannerPackage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ImageTextConverter {
@@ -51,6 +50,7 @@ public class ImageTextConverter {
         safeIngridents.add("Tapioca");
         safeIngridents.add("Xanthan Gum");
         safeIngridents.add("Modified Food Starch");
+        safeIngridents.add("Gluten Free");
     }
 
     public String checkDangerousIngredients(String tokenizedIngredient, int imageTokenizedTextSize){

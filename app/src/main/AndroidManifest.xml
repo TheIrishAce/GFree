@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gfree_application.gfree">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.gfree_application.gfree">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,9 +12,9 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.GFree">
-        <activity android:name=".CreateRestaurantReviewActivity"></activity>
-        <activity android:name=".RestaurantReviewActivity" />
-        <activity android:name=".PacketScannerActivity">
+        <activity android:name=".RestaurantReviewPackage.CreateRestaurantReviewActivity"></activity>
+        <activity android:name=".RestaurantReviewPackage.RestaurantReviewActivity" />
+        <activity android:name=".PacketScannerPackage.PacketScannerActivity">
             <meta-data
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" /> <!-- version -->
@@ -24,11 +23,11 @@
                 android:name="com.google.android.gms.vision.DEPENDENCIES"
                 android:value="ocr" /> <!-- barcode,face,ocr make sure added -->
         </activity>
-        <activity android:name=".ContactActivity" />
-        <activity android:name=".CreditActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".RegisterLoginActivity" />
+        <activity android:name=".DashboardPackage.HamburgerMenuPackage.ContactActivity" />
+        <activity android:name=".DashboardPackage.HamburgerMenuPackage.CreditActivity" />
+        <activity android:name=".DashboardPackage.HamburgerMenuPackage.LoginActivity" />
+        <activity android:name=".DashboardPackage.HamburgerMenuPackage.RegisterActivity" />
+        <activity android:name=".DashboardPackage.HamburgerMenuPackage.RegisterLoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,10 +36,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserDashboardActivity"
+            android:name=".DashboardPackage.UserDashboardActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".GuestDashboardActivity"
+            android:name=".DashboardPackage.GuestDashboardActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

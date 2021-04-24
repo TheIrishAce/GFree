@@ -1,8 +1,10 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.DashboardPackage.HamburgerMenuPackage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.gfree_application.gfree.R;
 
 public class CreditActivity extends AppCompatActivity {
 

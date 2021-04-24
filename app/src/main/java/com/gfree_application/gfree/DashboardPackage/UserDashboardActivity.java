@@ -1,4 +1,12 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.DashboardPackage;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,17 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import com.gfree_application.gfree.DashboardPackage.HamburgerMenuPackage.ContactActivity;
+import com.gfree_application.gfree.DashboardPackage.HamburgerMenuPackage.CreditActivity;
+import com.gfree_application.gfree.MainActivity;
+import com.gfree_application.gfree.PacketScannerPackage.PacketScannerActivity;
+import com.gfree_application.gfree.R;
+import com.gfree_application.gfree.RestaurantReviewPackage.RestaurantReviewActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class GuestDashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class UserDashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
@@ -28,7 +35,7 @@ public class GuestDashboardActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_dashboard);
+        setContentView(R.layout.activity_user_dashboard);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -43,9 +50,19 @@ public class GuestDashboardActivity extends AppCompatActivity implements Navigat
         packetScannerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuestDashboardActivity.this, PacketScannerActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, PacketScannerActivity.class));
             }
         });
+
+        resterauntReviewButton = findViewById(R.id.dashboard_restaurant_review_button);
+        resterauntReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserDashboardActivity.this, RestaurantReviewActivity.class));
+            }
+        });
+
+
     }
     /*
        onNavigationItemSelected used to give functionality to items inside the hamburger menu.
@@ -54,14 +71,16 @@ public class GuestDashboardActivity extends AppCompatActivity implements Navigat
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.login:
-                startActivity(new Intent(GuestDashboardActivity.this, RegisterLoginActivity.class));
+            case R.id.signout:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "Logged out!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UserDashboardActivity.this, MainActivity.class));
                 break;
             case R.id.contact_me:
-                startActivity(new Intent(GuestDashboardActivity.this, ContactActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, ContactActivity.class));
                 break;
             case R.id.credits:
-                startActivity(new Intent(GuestDashboardActivity.this, CreditActivity.class));
+                startActivity(new Intent(UserDashboardActivity.this, CreditActivity.class));
                 break;
         }
         return true;

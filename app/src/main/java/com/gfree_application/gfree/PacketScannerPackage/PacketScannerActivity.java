@@ -1,4 +1,4 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.PacketScannerPackage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +18,12 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gfree_application.gfree.DashboardPackage.UserDashboardActivity;
+import com.gfree_application.gfree.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -30,11 +31,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -300,6 +297,17 @@ public class PacketScannerActivity extends AppCompatActivity {
 //                safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
 //            }
 //        }
+        
+        int index=0;
+        while(scannedImageDangerousIngredients.contains("Gluten")){
+            if(scannedImageDangerousIngredients.contains("Gluten")){
+                index = scannedImageDangerousIngredients.indexOf("Gluten");
+            }
+            if(scannedImageSafeIngredients.contains("Gluten Free")){
+                scannedImageDangerousIngredients.remove(index);
+            }
+        }
+
         for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
             scannedImageDangerousIngredients = removeDuplicate(scannedImageDangerousIngredients);
             dangerousIngredientTextView.append(scannedImageDangerousIngredients.get(i)+ "\n");
@@ -320,7 +328,6 @@ public class PacketScannerActivity extends AppCompatActivity {
         scannedImageAllIngredients.addAll(scannedImageWarningIngredients);
         scannedImageAllIngredients.addAll(scannedImageSafeIngredients);
         scannedImageAllIngredients = removeDuplicate(scannedImageAllIngredients);
-
 
         //if at least 1 ingredient is added to the list. Begin text to speech.
         if (!scannedImageAllIngredients.isEmpty()){

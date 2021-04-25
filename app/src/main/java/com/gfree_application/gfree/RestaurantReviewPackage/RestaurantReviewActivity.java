@@ -33,7 +33,7 @@ public class RestaurantReviewActivity extends AppCompatActivity {
         readReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(RestaurantReviewActivity.this, ReadRestaurantReviewActivity.class));
             }
         });
 

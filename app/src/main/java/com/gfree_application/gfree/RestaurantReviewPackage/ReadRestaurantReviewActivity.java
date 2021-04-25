@@ -22,7 +22,7 @@ public class ReadRestaurantReviewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("reviews");
-    private RestaurantReviewRecyclerAdapter adapter;
+    private ReadRestaurantReviewRecyclerAdapter adapter;
     private ArrayList<RestaurantReview> reviewsArrayList = new ArrayList<>();
 
     @Override
@@ -32,9 +32,9 @@ public class ReadRestaurantReviewActivity extends AppCompatActivity {
         Context context = this;
         reviewsArrayList = new ArrayList<>();
 
-        adapter = new RestaurantReviewRecyclerAdapter(context, reviewsArrayList);
+        adapter = new ReadRestaurantReviewRecyclerAdapter(context, reviewsArrayList);
 
-        recyclerView = findViewById(R.id.reviewsRecyclerView);
+        recyclerView = findViewById(R.id.readReviewsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
 

@@ -14,12 +14,12 @@ import com.gfree_application.gfree.R;
 
 import java.util.ArrayList;
 
-public class RestaurantReviewRecyclerAdapter extends RecyclerView.Adapter<RestaurantReviewRecyclerAdapter.MyViewHolder> {
+public class ReadRestaurantReviewRecyclerAdapter extends RecyclerView.Adapter<ReadRestaurantReviewRecyclerAdapter.MyViewHolder> {
 
     ArrayList<RestaurantReview> mList;
     Context context;
 
-    public RestaurantReviewRecyclerAdapter(Context context, ArrayList<RestaurantReview> mList){
+    public ReadRestaurantReviewRecyclerAdapter(Context context, ArrayList<RestaurantReview> mList){
         this.mList = mList;
         this.context = context;
     }
@@ -27,7 +27,7 @@ public class RestaurantReviewRecyclerAdapter extends RecyclerView.Adapter<Restau
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.reviewitem, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.read_reviewitem, parent, false);
         return new MyViewHolder(v);
     }
 

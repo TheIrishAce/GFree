@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.gfree_application.gfree.R;
-import com.gfree_application.gfree.RestaurantReviewPackage.RestaurantReview;
 import com.gfree_application.gfree.DashboardPackage.UserDashboardActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,8 +29,6 @@ public class CreateRestaurantReviewActivity extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
-
-
     String email, name, uid, providerId;
 
     @Override
@@ -42,8 +38,8 @@ public class CreateRestaurantReviewActivity extends AppCompatActivity {
 
         submitReview = findViewById(R.id.submit_review_button);
         reviewDescriptionTextInput = findViewById(R.id.create_review_optional_description);
-        restaurantName = findViewById(R.id.create_review_resteraunt_name);
-        restaurantRating = findViewById(R.id.restaurantRatingBar);
+        restaurantName = findViewById(R.id.create_review_resteraunt_name_EditText);
+        restaurantRating = findViewById(R.id.create_review_restaurant_RatingBar);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

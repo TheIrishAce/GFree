@@ -7,7 +7,7 @@
     tools:context=".RestaurantReviewPackage.CreateRestaurantReviewActivity">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/create_review_optional_description"
+        android:id="@+id/edit_review_optional_description"
         android:layout_width="382dp"
         android:layout_height="60dp"
         android:layout_marginTop="48dp"
@@ -16,10 +16,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_review_restaurant_RatingBar" />
+        app:layout_constraintTop_toBottomOf="@id/edit_review_restaurant_RatingBar" />
 
     <EditText
-        android:id="@+id/create_review_resteraunt_name_EditText"
+        android:id="@+id/edit_review_resteraunt_name_EditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/create_review_TextView"
+        android:id="@+id/edit_review_TextView"
         android:layout_width="wrap_content"
         android:layout_height="13dp"
         android:layout_marginTop="36dp"
@@ -43,10 +43,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_review_resteraunt_name_EditText" />
+        app:layout_constraintTop_toBottomOf="@id/edit_review_resteraunt_name_EditText" />
 
     <RatingBar
-        android:id="@+id/create_review_restaurant_RatingBar"
+        android:id="@+id/edit_review_restaurant_RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal"
@@ -57,18 +57,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_review_TextView" />
+        app:layout_constraintTop_toBottomOf="@id/edit_review_TextView" />
 
     <Button
-        android:id="@+id/submit_review_button"
+        android:id="@+id/submit_edited_review_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="248dp"
-        android:text="Submit"
+        android:text="Submit Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_review_optional_description" />
+        app:layout_constraintTop_toBottomOf="@id/edit_review_optional_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

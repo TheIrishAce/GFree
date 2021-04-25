@@ -11,17 +11,15 @@
         android:id="@+id/imageView"
         android:layout_width="140dp"
         android:layout_height="113dp"
-        android:layout_marginStart="135dp"
-        android:layout_marginTop="164dp"
-        android:layout_marginEnd="135dp"
         android:foreground="@mipmap/gfree_logo_foreground"
         android:foregroundGravity="center"
         android:scaleX="2"
         android:scaleY="2"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView4"
@@ -29,9 +27,6 @@
         android:layout_height="24dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="339dp"
-        android:layout_marginEnd="148dp"
         android:text="Disclaimer"
         android:textAlignment="center"
         android:textColor="@android:color/darker_gray"
@@ -39,9 +34,7 @@
         android:typeface="serif"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -63,13 +56,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="308dp"
         android:text="@string/app_credits"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

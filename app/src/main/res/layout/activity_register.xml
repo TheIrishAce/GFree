@@ -40,11 +40,21 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
+    <EditText
+        android:id="@+id/RegisterConfirmPasswordTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RegisterPasswordTextView"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword" />
+
     <Button
         android:id="@+id/ConfirmRegisterButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/RegisterPasswordTextView"
+        android:layout_below="@id/RegisterConfirmPasswordTextView"
         android:layout_marginTop="50dp"
         android:text="Register" />
 

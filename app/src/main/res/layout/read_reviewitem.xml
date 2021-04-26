@@ -17,24 +17,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="50dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Restaurant Name :"
                 android:padding="5dp"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:text="Restaurant Name :"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Test Restaurant Name"
-                android:textStyle="bold"
-                android:layout_marginStart="20dp"
                 android:id="@+id/restaurant_review_name_text"
-                android:textSize="17sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Test Restaurant Name"
+                android:textSize="17sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,10 +46,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Review Description :"
                 android:padding="5dp"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:text="Review Description :"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

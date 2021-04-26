@@ -36,6 +36,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        }, 10000); //10000 or 10
+        }, 10); //10000 or 10
     }
 }

@@ -14,9 +14,12 @@
         android:theme="@style/Theme.GFree"
         android:usesCleartextTraffic="true">
         <activity android:name=".RestaurantReviewPackage.DeleteRestaurantReviewActivity"></activity>
-        <activity android:name=".RestaurantReviewPackage.UpdateRestaurantReviewActivity" />
+        <activity android:name=".RestaurantReviewPackage.UpdateRestaurantReviewActivity"
+            android:noHistory = "true"/>
         <activity android:name=".RestaurantReviewPackage.ReadRestaurantReviewActivity" />
         <activity android:name=".RestaurantReviewPackage.CreateRestaurantReviewActivity" />
+        <activity android:name=".RestaurantReviewPackage.EditRestaurantReviewActivity"
+            android:noHistory = "true"/>
         <activity android:name=".RestaurantReviewPackage.RestaurantReviewActivity" />
         <activity android:name=".PacketScannerPackage.PacketScannerActivity">
             <meta-data

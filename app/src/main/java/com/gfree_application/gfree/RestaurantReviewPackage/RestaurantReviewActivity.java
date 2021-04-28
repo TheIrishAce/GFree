@@ -47,7 +47,7 @@ public class RestaurantReviewActivity extends AppCompatActivity {
         deleteReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(RestaurantReviewActivity.this, DeleteRestaurantReviewActivity.class));
             }
         });
 

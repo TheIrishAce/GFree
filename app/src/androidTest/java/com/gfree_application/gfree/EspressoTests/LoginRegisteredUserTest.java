@@ -1,18 +1,25 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.EspressoTests;
 
 
+import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.gfree_application.gfree.MainActivity;
+import com.gfree_application.gfree.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,17 +41,17 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ReadRestaurantReviewTest {
+public class LoginRegisteredUserTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void readRestaurantReviewTest() {
+    public void loginRegisteredUserTest() {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         childAtPosition(
-                                allOf(withId(R.id.toolbar),
+                                Matchers.allOf(ViewMatchers.withId(R.id.toolbar),
                                         childAtPosition(
                                                 withClassName(is("android.widget.LinearLayout")),
                                                 0)),
@@ -122,30 +129,12 @@ public class ReadRestaurantReviewTest {
                         isDisplayed()));
         materialButton2.perform(click());
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.dashboard_restaurant_review_button), withText("Restaurant Review"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.TableLayout")),
-                                        0),
-                                1),
+        ViewInteraction button = onView(
+                allOf(withId(R.id.dashboard_restaurant_review_button), withText("RESTAURANT REVIEW"),
+                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.TableLayout.class))),
                         isDisplayed()));
-        appCompatButton.perform(click());
-
-        ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.restaurant_review_read_button), withText("Read Reviews"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.TableLayout")),
-                                        0),
-                                1),
-                        isDisplayed()));
-        materialButton3.perform(click());
-
-        ViewInteraction linearLayout = onView(
-                allOf(withParent(withParent(withId(R.id.readReviewsRecyclerView))),
-                        isDisplayed()));
-        linearLayout.check(matches(isDisplayed()));
+                        SystemClock.sleep(1500);
+        button.check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(

@@ -1,18 +1,24 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.EspressoTests;
 
 
+import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.gfree_application.gfree.MainActivity;
+import com.gfree_application.gfree.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
@@ -43,9 +49,9 @@ public class PacketScannerTakeImageTest {
                     "android.permission.CAMERA");
 
     @Test
-    public void packetScannerActivityTakeImageTest() {
+    public void packetScannerTakeImageTest() {
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.dashboard_packet_scanner_button), withText("Packet Scanner"),
+                Matchers.allOf(ViewMatchers.withId(R.id.dashboard_packet_scanner_button), withText("Packet Scanner"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.TableLayout")),
@@ -64,6 +70,8 @@ public class PacketScannerTakeImageTest {
                         isDisplayed()));
         materialButton.perform(click());
 
+        SystemClock.sleep(2500);
+
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.captureScanButton),
                         childAtPosition(
@@ -79,6 +87,7 @@ public class PacketScannerTakeImageTest {
                         withParent(allOf(withId(R.id.safeIngredientRow),
                                 withParent(IsInstanceOf.<View>instanceOf(android.widget.TableLayout.class)))),
                         isDisplayed()));
+        SystemClock.sleep(1500);
         imageView.check(matches(isDisplayed()));
     }
 

@@ -1,17 +1,23 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.EspressoTests;
 
 
+import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.gfree_application.gfree.MainActivity;
+import com.gfree_application.gfree.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
@@ -25,6 +31,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -36,17 +43,17 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CreateRestaurantReviewTest {
+public class UpdateRestaurantReviewTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void createRestaurantReviewTest() {
+    public void updateRestaurantReviewTest() {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         childAtPosition(
-                                allOf(withId(R.id.toolbar),
+                                Matchers.allOf(ViewMatchers.withId(R.id.toolbar),
                                         childAtPosition(
                                                 withClassName(is("android.widget.LinearLayout")),
                                                 0)),
@@ -132,112 +139,56 @@ public class CreateRestaurantReviewTest {
                                         0),
                                 1),
                         isDisplayed()));
+                        SystemClock.sleep(1500);
         appCompatButton.perform(click());
 
         ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.restaurant_review_create_button), withText("Create Review"),
+                allOf(withId(R.id.restaurant_review_update_button), withText("Update Reviews"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.TableLayout")),
-                                        0),
+                                        1),
                                 0),
                         isDisplayed()));
         materialButton3.perform(click());
 
+//        ViewInteraction frameLayout = onView(
+//                allOf(withParent(allOf(withId(R.id.updateReviewsRecyclerView),
+//                        withParent(IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class)))),
+//                        isDisplayed()));
+//        SystemClock.sleep(3000);
+//        frameLayout.check(matches(isDisplayed()));
+
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.updateReviewsRecyclerView),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                1)));
+        SystemClock.sleep(3000);
+        recyclerView.perform(actionOnItemAtPosition(0, click()));
+
         ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.create_review_resteraunt_name_EditText),
+                allOf(withId(R.id.edit_review_resteraunt_name_EditText), isDisplayed(),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText5.perform(replaceText("Test Restaurant Review"), closeSoftKeyboard());
+        appCompatEditText5.perform(replaceText("O'Neils Diner Test Review"));
 
-        ViewInteraction textInputEditText = onView(
-                allOf(withId(R.id.create_review_optional_description),
+        ViewInteraction appCompatEditText6 = onView(
+                allOf(withId(R.id.edit_review_resteraunt_name_EditText), withText("O'Neils Diner Test Review"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
-        textInputEditText.perform(replaceText("This test Restaurant "), closeSoftKeyboard());
-
-        ViewInteraction textInputEditText2 = onView(
-                allOf(withId(R.id.create_review_optional_description), withText("This test Restaurant "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText2.perform(click());
-
-        ViewInteraction textInputEditText3 = onView(
-                allOf(withId(R.id.create_review_optional_description), withText("This test Restaurant "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText3.perform(click());
-
-        ViewInteraction textInputEditText4 = onView(
-                allOf(withId(R.id.create_review_optional_description), withText("This test Restaurant "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText4.perform(replaceText("This test restaurant "));
-
-        ViewInteraction textInputEditText5 = onView(
-                allOf(withId(R.id.create_review_optional_description), withText("This test restaurant "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText5.perform(closeSoftKeyboard());
-
-        ViewInteraction textInputEditText6 = onView(
-                allOf(withId(R.id.create_review_optional_description), withText("This test restaurant "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText6.perform(click());
-
-        ViewInteraction textInputEditText7 = onView(
-                allOf(withId(R.id.create_review_optional_description), withText("This test restaurant "),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText7.perform(replaceText("This test restaurant is great to eat at."));
-
-        ViewInteraction textInputEditText8 = onView(
-                allOf(withId(R.id.create_review_optional_description), withText("This test restaurant is great to eat at."),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText8.perform(closeSoftKeyboard());
-
-        pressBack();
+        appCompatEditText6.perform(closeSoftKeyboard());
 
         ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.submit_review_button), withText("Submit"),
+                allOf(withId(R.id.submit_edited_review_button), withText("Submit Edit"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -245,12 +196,6 @@ public class CreateRestaurantReviewTest {
                                 4),
                         isDisplayed()));
         materialButton4.perform(click());
-
-        ViewInteraction button = onView(
-                allOf(withId(R.id.dashboard_restaurant_review_button), withText("RESTAURANT REVIEW"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.TableLayout.class))),
-                        isDisplayed()));
-        button.check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(

@@ -1,17 +1,23 @@
-package com.gfree_application.gfree;
+package com.gfree_application.gfree.EspressoTests;
 
 
+import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.gfree_application.gfree.MainActivity;
+import com.gfree_application.gfree.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,7 +50,7 @@ public class DeleteRestaurantReviewTest {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         childAtPosition(
-                                allOf(withId(R.id.toolbar),
+                                Matchers.allOf(ViewMatchers.withId(R.id.toolbar),
                                         childAtPosition(
                                                 withClassName(is("android.widget.LinearLayout")),
                                                 0)),
@@ -130,6 +136,7 @@ public class DeleteRestaurantReviewTest {
                                         0),
                                 1),
                         isDisplayed()));
+                        SystemClock.sleep(1500);
         appCompatButton.perform(click());
 
         ViewInteraction materialButton3 = onView(
@@ -147,6 +154,7 @@ public class DeleteRestaurantReviewTest {
                         childAtPosition(
                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                 0)));
+        SystemClock.sleep(1500);
         recyclerView.perform(actionOnItemAtPosition(0, click()));
 
         ViewInteraction materialButton4 = onView(

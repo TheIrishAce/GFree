@@ -30,10 +30,14 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PacketScannerActivity extends AppCompatActivity {
 
@@ -262,51 +266,27 @@ public class PacketScannerActivity extends AppCompatActivity {
         Log.d("Is Warning Ingredient ArrayList Empty", String.valueOf(scannedImageWarningIngredients.isEmpty()));
         Log.d("Is Safe Ingredient ArrayList Empty", String.valueOf(scannedImageSafeIngredients.isEmpty()));
 
+        ArrayList<String> ingredientsToDelete = new ArrayList<String>();
+        boolean foundGlutenFree = false;
 
-        //Set visibility of different categories.
-//        if (scannedImageDangerousIngredients.isEmpty()){
-//            Log.d("Entered first if", scannedImageDangerousIngredients.toString());
-//            dangerousIngredientRow.clearAnimation();
-//            dangerousIngredientRow.setVisibility(View.GONE);
-//            //dangerousIngredientRow.invalidate();
-//        }
-//        else {
-//            for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
-//                dangerousIngredientTextView.append(scannedImageDangerousIngredients.get(i)+ "\n");
-//            }
-//        }
-//        if (scannedImageWarningIngredients.isEmpty()){
-//            Log.d("Entered sec if", scannedImageWarningIngredients.toString());
-//            warningIngredientRow.clearAnimation();
-//            warningIngredientRow.setVisibility(View.GONE);
-//            // warningIngredientRow.invalidate();
-//
-//        } else {
-//            for (int i =0; i < scannedImageWarningIngredients.size(); i++){
-//                warningIngredientTextView.append(scannedImageWarningIngredients.get(i) + "\n");
-//            }
-//        }
-//        if (scannedImageSafeIngredients.isEmpty()){
-//            Log.d("Entered thir if", scannedImageSafeIngredients.toString());
-//            safeIngredientRow.clearAnimation();
-//            safeIngredientRow.setVisibility(View.GONE);
-//            //safeIngredientRow.invalidate();
-//
-//        } else {
-//            for (int i =0; i < scannedImageSafeIngredients.size(); i++){
-//                safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
-//            }
-//        }
-        
-        int index=0;
-        while(scannedImageDangerousIngredients.contains("Gluten")){
-            if(scannedImageDangerousIngredients.contains("Gluten")){
-                index = scannedImageDangerousIngredients.indexOf("Gluten");
-            }
-            if(scannedImageSafeIngredients.contains("Gluten Free")){
-                scannedImageDangerousIngredients.remove(index);
+        //if gluten free safe is found then remove any negative gluten.
+        for (int i=0; i<scannedImageSafeIngredients.size(); i++){
+            if (scannedImageSafeIngredients.get(i).toLowerCase().contains("gluten free")) {
+                foundGlutenFree = true;
             }
         }
+
+        if (foundGlutenFree) {
+            for (int i=0; i<scannedImageDangerousIngredients.size(); i++){
+                if (scannedImageDangerousIngredients.get(i).toLowerCase().contains("gluten")){
+                    ingredientsToDelete.add(scannedImageDangerousIngredients.get(i));
+                }
+            }
+
+            scannedImageDangerousIngredients.removeAll(ingredientsToDelete);
+        }
+
+
 
         for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
             scannedImageDangerousIngredients = removeDuplicate(scannedImageDangerousIngredients);

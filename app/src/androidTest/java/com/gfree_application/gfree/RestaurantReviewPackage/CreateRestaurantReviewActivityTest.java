@@ -9,17 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateRestaurantReviewActivityTest {
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
-//
-//    public static void main(String[] args){
-//
-//    }
-
-    @Test
+   @Test
     public void onCreate() {
-        //assertEquals(1, 1);
-        //Create testing instance
         RestaurantReview review = new RestaurantReview();
         review.reviewId = "ABC";
         review.userEmail = "junittestemail@gmail.com";

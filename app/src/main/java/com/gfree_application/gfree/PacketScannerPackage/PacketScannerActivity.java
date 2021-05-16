@@ -22,6 +22,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gfree_application.gfree.DashboardPackage.GuestDashboardActivity;
 import com.gfree_application.gfree.DashboardPackage.UserDashboardActivity;
 import com.gfree_application.gfree.R;
 import com.google.android.gms.vision.CameraSource;
@@ -41,9 +42,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class PacketScannerActivity extends AppCompatActivity {
 
+    //create private variables for all data types used by the activities.
     private TextView dangerousIngredientTextView, warningIngredientTextView, safeIngredientTextView;
     private TableRow dangerousIngredientRow, warningIngredientRow, safeIngredientRow;
-    //private ImageView dangerousIngredientRowIcon, warningIngredientRowIcon, safeIngredientRowIcon;
     private SurfaceView surfaceView;
     private Button openScanButton, captureScanButton;
     private CameraSource cameraSource;
@@ -56,9 +57,13 @@ public class PacketScannerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Sets the view context of this java class.
         setContentView(R.layout.activity_packet_scanner);
 
+        //make sure live camera gets permission and is granted.
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PackageManager.PERMISSION_GRANTED);
+
+        //set private variables to an object that exists in the given context.
         openScanButton = findViewById(R.id.openScanButton);
         openScanButton.setBackgroundResource(R.drawable.circular_button);
 
@@ -74,12 +79,7 @@ public class PacketScannerActivity extends AppCompatActivity {
         scannedImageWarningIngredients = new ArrayList<String>();
         scannedImageSafeIngredients = new ArrayList<String>();
 
-//        dangerousIngredientRow.setVisibility(View.GONE);
-//        warningIngredientRow.setVisibility(View.GONE);
-//        safeIngredientRow.setVisibility(View.GONE);
-
-//        if (String[]{Manifest.permission.CAMERA}) {
-//        }
+        //declare a new instance of text to speech.
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -89,6 +89,7 @@ public class PacketScannerActivity extends AppCompatActivity {
 
     }
 
+    //On this activity destruction release the camera feed and stop any active text to speech.
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -100,34 +101,43 @@ public class PacketScannerActivity extends AppCompatActivity {
         }
     }
 
+    //Tect recognizer method used for detecting text in the scanned image.
     private void textRecognizer() {
+        //Declare 4 arraylists for the 3 different types of ingredients and the final one for all them combined.
         scannedImageDangerousIngredients = new ArrayList<String>();
         scannedImageWarningIngredients = new ArrayList<String>();
         scannedImageSafeIngredients = new ArrayList<String>();
         scannedImageAllIngredients = new ArrayList<String>();
 
+        //Clear the arraylists.
         clearIngridentTextFields();
         scannedImageDangerousIngredients.clear();
         scannedImageWarningIngredients.clear();
         scannedImageSafeIngredients.clear();
         scannedImageAllIngredients.clear();
 
-
+        //Create new text recogniser instance.
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+        //Create new live camera instance.
         cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
-                .setAutoFocusEnabled(true)
-                .setFocusMode("continuous-video")
-                .setRequestedPreviewSize(1280, 1080)
+                .setAutoFocusEnabled(true)                  //auto auto focus true or false.
+                .setFocusMode("continuous-video")           //set the focus to a continuous stream.
+                .setRequestedPreviewSize(1280, 1080) //set the dimensions of the camera, this is the resolution of the outputted image. (Not camera mega pixels)
                 .build();
+
+        //Create surface view to display the live camera.
         surfaceView = findViewById(R.id.surfaceView);
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder holder) {
                 try {
+                    //check if permissions were not granted by the user.
                     if (ActivityCompat.checkSelfPermission(PacketScannerActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        startActivity(new Intent(PacketScannerActivity.this, UserDashboardActivity.class));
+                        //Redirect user back to the dashboard.
+                        startActivity(new Intent(PacketScannerActivity.this, GuestDashboardActivity.class));
                         Toast.makeText(PacketScannerActivity.this, "You must grant permission to use this feature!", Toast.LENGTH_SHORT).show();
                     }
+                    //if the permissions are granted start the camera source.
                     else {
                         cameraSource.start(surfaceView.getHolder());
                     }
@@ -137,10 +147,9 @@ public class PacketScannerActivity extends AppCompatActivity {
             }
 
             @Override
-            public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+            public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {}
 
-            }
-
+            //On activity destruction stop the camera live feed and stop any text to speech read outs.
             @Override
             public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
                 cameraSource.stop();
@@ -148,10 +157,12 @@ public class PacketScannerActivity extends AppCompatActivity {
             }
         });
 
+        //text recognizer instance from Google ML text recognition library.
         textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
             @Override
             public void release() {}
 
+            //recieve detections method executes when words are detected throught the live camera feed.
             @Override
             public void receiveDetections(@NonNull Detector.Detections<TextBlock> detections) {
                 captureScanButton.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +189,7 @@ public class PacketScannerActivity extends AppCompatActivity {
                                 String returnedIngredient = null;
                                 while (st.hasMoreElements()){
                                     String CurrentWordToCheck = st.nextToken();
+                                    //Use ImageTextConverter class to compare detected words against the ingredient list.
                                     try {
                                         returnedIngredient = imgConverter.checkDangerousIngredients(CurrentWordToCheck, st.countTokens());
                                         if ((!returnedIngredient.equalsIgnoreCase("")) || (!returnedIngredient.equalsIgnoreCase(null))){
@@ -194,24 +206,6 @@ public class PacketScannerActivity extends AppCompatActivity {
                                     } catch (Exception e){
                                         System.out.println(e);
                                     }
-
-//                                    try {
-//                                        returnedIngredient = imgConverter.checkWarningIngredients(CurrentWordToCheck, st.countTokens());
-//                                        if ((!returnedIngredient.equalsIgnoreCase("")) || (!returnedIngredient.equalsIgnoreCase(null))){
-//                                            scannedImageWarningIngredients.add(returnedIngredient);
-//                                        }
-//                                    } catch (Exception e){
-//                                        System.out.println(e);
-//                                    }
-//
-//                                    try {
-//                                        returnedIngredient = imgConverter.checkSafeIngredients(CurrentWordToCheck, st.countTokens());
-//                                        if ((!returnedIngredient.equalsIgnoreCase(" ")) || (!returnedIngredient.equalsIgnoreCase(null))){
-//                                            scannedImageSafeIngredients.add(returnedIngredient);
-//                                        }
-//                                    } catch (Exception e){
-//                                        System.out.println(e);
-//                                    }
                                 }
                                 resultObtained();
                             }
@@ -222,6 +216,7 @@ public class PacketScannerActivity extends AppCompatActivity {
         });
     }
 
+    //Simple clear method, used to clear text fields.
     public void clearIngridentTextFields(){
         //Used to remove the placeholder message before the found ingredients are appended.
         dangerousIngredientTextView.setText("");
@@ -286,8 +281,7 @@ public class PacketScannerActivity extends AppCompatActivity {
             scannedImageDangerousIngredients.removeAll(ingredientsToDelete);
         }
 
-
-
+        //Loops to append found and stored ingredients in the array lists to their respective text views.
         for (int i =0; i < scannedImageDangerousIngredients.size(); i++){
             scannedImageDangerousIngredients = removeDuplicate(scannedImageDangerousIngredients);
             dangerousIngredientTextView.append(scannedImageDangerousIngredients.get(i)+ "\n");
@@ -301,7 +295,6 @@ public class PacketScannerActivity extends AppCompatActivity {
             safeIngredientTextView.append(scannedImageSafeIngredients.get(i)+ "\n");
         }
 
-
         //Add different ingredient lists to one main joint list to be used in text to speech.
         scannedImageAllIngredients = new ArrayList<String>();
         scannedImageAllIngredients.addAll(scannedImageDangerousIngredients);
@@ -312,10 +305,6 @@ public class PacketScannerActivity extends AppCompatActivity {
         //if at least 1 ingredient is added to the list. Begin text to speech.
         if (!scannedImageAllIngredients.isEmpty()){
             textToSpeech.speak(scannedImageAllIngredients.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
-//            scannedImageAllIngredients.clear();
-//            scannedImageDangerousIngredients.clear();
-//            scannedImageWarningIngredients.clear();
-//            scannedImageSafeIngredients.clear();
         }
     }
 
@@ -333,15 +322,12 @@ public class PacketScannerActivity extends AppCompatActivity {
         dangerousIngredientTextView = findViewById(R.id.scanDataDangerousIngredientTextView);
         warningIngredientTextView = findViewById(R.id.scanDataWarningIngredientTextView);
         safeIngredientTextView = findViewById(R.id.scanDataSafeIngredientTextView);
-
-
     }
 
     public void buttonStart(View view){
         setContentView(R.layout.camera_screen_surfaceview);
         captureScanButton = findViewById(R.id.captureScanButton);
         captureScanButton.setBackgroundResource(R.drawable.circular_button);
-
         textRecognizer();
     }
 }

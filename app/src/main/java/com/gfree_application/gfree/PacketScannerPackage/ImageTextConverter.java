@@ -8,12 +8,13 @@ public class ImageTextConverter {
     ArrayList<String> safeIngridents = new ArrayList();
 
     public ImageTextConverter(){
-        setDangerousIngridents();
-        setWarningIngridents();
-        setSafeIngridents();
+        setDangerousIngredients();
+        setWarningIngredients();
+        setSafeIngredients();
     };
 
-    public void setDangerousIngridents() {
+    //Create dangerous Ingredient array with dangerous ingredients.
+    public void setDangerousIngredients() {
         dangerousIngridents.add("Gluten");
         dangerousIngridents.add("Corn"); //TEST
         dangerousIngridents.add("Barley Malt Extract");
@@ -34,17 +35,18 @@ public class ImageTextConverter {
         dangerousIngridents.add("Barley");
     }
 
-    public void setWarningIngridents() {
+    //Create warning Ingredient array with potentially unsafe ingredients.
+    public void setWarningIngredients() {
         warningIngridents.add("Soya");
         warningIngridents.add("Oats");
         warningIngridents.add("Soy");
     }
 
-    public void setSafeIngridents() {
+    //Create safe Ingredient array with safe ingredients.
+    public void setSafeIngredients() {
         safeIngridents.add("Lecithin");
         safeIngridents.add("Maltodextrin"); //TEST
         safeIngridents.add("Millet");
-        //safeIngridents.add("Soy");
         safeIngridents.add("Silicon");
         safeIngridents.add("Starch");
         safeIngridents.add("Tapioca");
@@ -64,7 +66,6 @@ public class ImageTextConverter {
             //Check if the Ingredient coming in is equal to any Ingredient from the list.
             if (tokenizedIngredient.contains(dangerousIngridents.get(z).toLowerCase())) {
                 System.out.println("Returned Ingredient" + dangerousIngridents.get(z));
-                //foundDangerousIngredients.add(dangerousIngridents.get(z));
                 foundIngredient = dangerousIngridents.get(z);
                 break;
             }
@@ -74,9 +75,7 @@ public class ImageTextConverter {
         if (dangerousIngridents.isEmpty()){
             System.out.println("Dangerous Ingredients Array is Empty");
         }
-        //};
-
-        //System.out.println("Didn't Return Ingredient");
+        
         System.out.println("ALL FOUND DANGERS : " + foundIngredient);
         return foundIngredient;
     };
@@ -92,7 +91,6 @@ public class ImageTextConverter {
             //Check if the Ingredient coming in is equal to any Ingredient from the list.
             if (tokenizedIngredient.contains(warningIngridents.get(z).toLowerCase())) {
                 System.out.println("Returned Ingredient" + warningIngridents.get(z));
-                //foundDangerousIngredients.add(dangerousIngridents.get(z));
                 foundIngrdient = warningIngridents.get(z);
                 break;
             }
@@ -102,9 +100,7 @@ public class ImageTextConverter {
         if (warningIngridents.isEmpty()){
             System.out.println("Warning Ingredients Array is Empty");
         }
-        //};
 
-        //System.out.println("Didn't Return Ingredient");
         System.out.println("ALL FOUND WARNINGS : " + foundIngrdient);
         return foundIngrdient;
     };
@@ -120,7 +116,6 @@ public class ImageTextConverter {
             //Check if the Ingredient coming in is equal to any Ingredient from the list.
             if (tokenizedIngredient.contains(safeIngridents.get(z).toLowerCase())) {
                 System.out.println("Returned Ingredient" + safeIngridents.get(z));
-                //foundDangerousIngredients.add(dangerousIngridents.get(z));
                 foundIngrdient = safeIngridents.get(z);
                 break;
             }
@@ -130,7 +125,6 @@ public class ImageTextConverter {
         if (safeIngridents.isEmpty()){
             System.out.println("Safe Ingredients Array is Empty");
         }
-        //};
 
         //System.out.println("Didn't Return Ingredient");
         System.out.println("ALL FOUND SAFE : " + foundIngrdient);
